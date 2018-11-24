@@ -12,7 +12,7 @@ ASL(American Sign Language) Alphabet Translator
 in Ajou University
 
 ## 3. Outline
-This project is about making American sign language alphabet translator using data from Kaggle. We used CNN(Conv2D in keras) to make the model.
+This project is about making American sign language alphabet translator using data from Kaggle. We used CNN(Convolutional Neural Network) to make the model.
 
 ### Environment
 <li> python 3.6.5. (64bit)
