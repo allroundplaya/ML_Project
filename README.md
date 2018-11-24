@@ -15,8 +15,7 @@ in Ajou University
 This project is about making American sign language alphabet translator using data from Kaggle. We used CNN(Conv2D in keras) to make the model.
 
 ### Environment
-<li> python 3.6.5.
-<li> keras
+<li> python 3.6.5. (64bit)
 <li> tensorflow
 
 ## 4. Application
