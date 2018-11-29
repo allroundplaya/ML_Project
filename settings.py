@@ -27,3 +27,6 @@ TRAIN_Z_DIR, TEST_Z_DIR = "./train/z/", "./test/z/"
 TRAIN_SPACE_DIR, TEST_SPACE_DIR = "./train/space/", "./test/space/"
 TRAIN_NOTHING_DIR, TEST_NOTHING_DIR = "./train/nothing/", "./test/nothing/"
 TRAIN_DEL_DIR, TEST_DEL_DIR = "./train/del/", "./test/del/"
+
+LETTERS = ['A', 'B', 'C', 'D', 'del', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
+              'nothing', 'O', 'P', 'Q', 'R', 'S', 'space', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
