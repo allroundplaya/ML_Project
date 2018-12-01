@@ -1,19 +1,15 @@
 import tensorflow as tf
 import matplotlib.pyplot as plt
 import random
+import numpy as np
 from settings import *
 
 learning_rate = 0.01
 train_epochs = 3
 batch_size = 100
 
-X = tf.placeholder(tf.float32, [28, 28, 3])
+X = tf.placeholder(tf.float32, [200, 200, 3])
 Y = tf.placeholder(tf.float32, [None, 29])
-
-image = tf.image.decode_image(tf.read_file("./train/a/A1.jpg"), channels=3)
-
-with tf.Session() as sess:
-    print(sess.run(image).shape)
 
 """
 합성곱이나 풀링 층을 넣을 때, stride 를 [1, x, y, 1] 이런식으로 넣는 것을 볼 수 있는데
@@ -45,7 +41,7 @@ hypothesis = tf.matmul(L2, W3) + b
 # Softmax 함수를 직접 사용하는 대신에 softmax_cross_entropy_with_logits을 사용할 수 있다.
 # 인자로 logits과 label을 전달해주면 된다.
 cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_withlogits(logits=hypothesis, labels=Y))
-
+optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(cost)
 # GD를 이전까지 썼지만
 # 좀더 학습성과가 뛰어나다고 알려져 있는 Adam Optimizer를 사용한다.
 
@@ -56,11 +52,15 @@ print('Learning started. It takes sometime.')
 for epoch in range(train_epochs):
     avg_cost = 0
     # total_batch = (example 수 / batch_size)
-    for i in range(total_batch):
-        feed_dict = {X:batch_xs, Y:batch_ys}
+    # for i in range(total_batch):
+    #     feed_dict = {X:batch_xs, Y:batch_ys}
+    #     c, _ = sess.run([cost, optimizer], feed_dict=feed_dict)
+    #     avg_cost += c / total_batch
+    total_batch = 29
+    for char in LETTERS:
+        feed_dict = {X:np.load('./data/train_X_'+char+'.npy'), Y:np.load('./data/train_y_'+char+'.npy')}
         c, _ = sess.run([cost, optimizer], feed_dict=feed_dict)
         avg_cost += c / total_batch
-
     print("Epoch:", "%04d" (epoch+1), "cost=", "{:.9f}".format(avg_cost))
 
 print("learning finished")
