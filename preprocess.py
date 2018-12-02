@@ -65,6 +65,7 @@ def preprocess_train_data(char):
             train_y = np.append(train_y, char)
         train_X = np.array(train_X)
         np.savez_compressed('./data/train_X_' + char, a=train_X)
+        np.load("./data/trainX.npz")['a']
         np.savez_compressed('./data/train_y_' + char, a=train_y)
         print("done!!!")
 
