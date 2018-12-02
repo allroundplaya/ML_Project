@@ -45,8 +45,10 @@ def Reformat_Image(path):
 
 
 def preprocess_train_data(char):
+    if not os.path.exists("./path"):
+        os.mkdir("./path")
     print("Preprocessing ", char + "(train)")
-    if not os.path.exists('./data/train_X_' + char + '.npy'):
+    if not os.path.exists('./data/train_X_' + char + '.npz'):
         if not os.path.exists('./paths/train_paths_' + char + '.npy'):
             train_paths = np.array([])
             for i in range(1, 2101):
@@ -62,13 +64,16 @@ def preprocess_train_data(char):
             train_X.append(Reformat_Image(path))
             train_y = np.append(train_y, char)
         train_X = np.array(train_X)
-        np.save('./data/train_X_' + char, train_X)
-        np.save('./data/train_y_' + char, train_y)
+        np.savez_compressed('./data/train_X_' + char, a=train_X)
+        np.savez_compressed('./data/train_y_' + char, a=train_y)
+        print("done!!!")
 
 
 def preprocess_test_data(char):
+    if not os.path.exists("./path"):
+        os.mkdir("./path")
     print("Preprocessing " + char + "(test)")
-    if not os.path.exists('./data/test_X_' + char + '.npy'):
+    if not os.path.exists('./data/test_X_' + char + '.npz'):
         if not os.path.exists('./paths/test_paths_' + char + '.npy'):
             test_paths = np.array([])
             for i in range(2101, 3001):
@@ -85,10 +90,59 @@ def preprocess_test_data(char):
             test_X.append(Reformat_Image(path))
             test_y = np.append(test_y, char)
         test_X = np.array(test_X)
-        np.save('./data/test_X_' + char, test_X)
-        np.save('./data/test_y_' + char, test_y)
+        np.savez_compressed('./data/test_X_' + char, a=test_X)
+        np.savez_compressed('./data/test_y_' + char, a=test_y)
+        print("done!!!")
 
 def preprocess_all_data():
+    if not os.path.exists("./data"):
+        os.mkdir("./data")
     for LETTER in LETTERS:
         preprocess_train_data(LETTER)
         preprocess_test_data(LETTER)
+
+    # train_X to npz
+    np_tuple = []
+    for letter in LETTERS:
+        np_tuple.append(np.load('./data/train_X_'+letter+'.npz')['a'])
+        print(letter, " finished")
+    np_tuple = tuple(np_tuple)
+    x_train = np.concatenate(np_tuple)
+    np.savez_compressed("./data/train_X", a=x_train)
+
+    # train_y to npz
+    y_train = np.array([])
+    for letter in LETTERS:
+        y_train = np.append(y_train, np.load('./data/train_y_'+letter+'.npz')['a'])
+        print(letter, " finished")
+    np.savez_compressed("./data/train_y", a=y_train)
+
+
+    # test_X to npz
+    np_tuple = []
+    for letter in LETTERS:
+        np_tuple.append(np.load('./data/test_X_'+letter+'.npz')['a'])
+        print(letter, " finished")
+    np_tuple = tuple(np_tuple)
+    x_test = np.concatenate(np_tuple)
+    np.savez_compressed("./data/test_X", a=x_test)
+
+    # test_y to npz
+    y_test = np.array([])
+    for letter in LETTERS:
+        y_test = np.append(y_test, np.load('./data/test_y_'+letter+'.npz')['a'])
+        print(letter, " finished")
+    np.savez_compressed("./data/test_y", a=y_test)
+
+    for LETTER in LETTERS:
+        if os.path.exists('./data/train_X_'+LETTER+'.npz'):
+            os.remove('./data/train_X_'+LETTER+'.npz')
+        if os.path.exists('./data/train_y_' + LETTER + '.npz'):
+            os.remove('./data/train_y_' + LETTER + '.npz')
+        if os.path.exists('./data/test_X_' + LETTER + '.npz'):
+            os.remove('./data/test_X_' + LETTER + '.npz')
+        if os.path.exists('./data/test_y_' + LETTER + '.npz'):
+            os.remove('./data/test_y_' + LETTER + '.npz')
+
+
+preprocess_all_data()
