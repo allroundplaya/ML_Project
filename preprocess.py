@@ -45,15 +45,16 @@ def Reformat_Image(path):
 
 
 def preprocess_train_data(char):
-    if not os.path.exists("./path"):
-        os.mkdir("./path")
+    if not os.path.exists("./paths"):
+        os.mkdir("./paths")
     print("Preprocessing ", char + "(train)")
     if not os.path.exists('./data/train_X_' + char + '.npz'):
         if not os.path.exists('./paths/train_paths_' + char + '.npy'):
             train_paths = np.array([])
-            for i in range(1, 2101):
+            for i in range(1, 15): # 나중에 2101로 바꾼다.
                 train_paths = np.append(train_paths,
-                                        './asl_alphabet_train/' + char + '/' + char + str(i) + '.jpg')
+                                        './please/' + char + '/' + char + str(i) + '.jpg')
+                #나중에 asl_alphabet_train으로 바꾼다.
             np.save("./paths/train_paths_"+char, train_paths)
             print("train path for " + char + " complete")
 
@@ -65,22 +66,21 @@ def preprocess_train_data(char):
             train_y = np.append(train_y, char)
         train_X = np.array(train_X)
         np.savez_compressed('./data/train_X_' + char, a=train_X)
-        np.load("./data/trainX.npz")['a']
         np.savez_compressed('./data/train_y_' + char, a=train_y)
         print("done!!!")
 
 
 def preprocess_test_data(char):
-    if not os.path.exists("./path"):
-        os.mkdir("./path")
+    if not os.path.exists("./paths"):
+        os.mkdir("./paths")
     print("Preprocessing " + char + "(test)")
     if not os.path.exists('./data/test_X_' + char + '.npz'):
         if not os.path.exists('./paths/test_paths_' + char + '.npy'):
             test_paths = np.array([])
-            for i in range(2101, 3001):
+            for i in range(15, 21): # 나중에 2101 3001로 바꾼다.
                 test_paths = np.append(test_paths,
-                                       './asl_alphabet_train/' + char + '/' + char + str(i) + '.jpg')
-
+                                       './please/' + char + '/' + char + str(i) + '.jpg')
+                # 나중에 asl_alphabet_train으로 바꾼다.
             np.save("./paths/test_paths_" + char, test_paths)
             print("test path for " + char + " complete")
 
