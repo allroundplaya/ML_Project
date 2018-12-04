@@ -30,37 +30,29 @@ class CNN:
             (np.load(x_test_path)['a'], np.load(y_test_path)['a'])
 
     def make_cnn_model(self):
-
-        # self.model.add(Conv2D(32, kernel_size=(3, 3), activation='relu', input_shape=self.input_shape))
-        self.model.add(Conv2D(32, kernel_size=(9, 9), strides=(4, 4), activation='relu', input_shape=self.input_shape))
-        print("conv2d(9, 9, 32), stride(4, 4) output: ", self.model.output_shape)  # (48, 48, 32)
+        self.model.add(Conv2D(32, kernel_size=(9, 9), strides=(2, 2), activation='relu', input_shape=self.input_shape))
+        print("conv2d output: ", self.model.output_shape)
         self.model.add(MaxPooling2D(pool_size=(2, 2)))
-        print("maxpool 2d(2,2): ", self.model.output_shape)  # (24, 24, 32)
+        print("maxpool2d output: ", self.model.output_shape)
         self.model.add(Dropout(0.25))
-        print("Dropout 0.25: ", self.model.output_shape)  # (24, 24, 32)
+        print("Dropout output: ", self.model.output_shape)
         print()
 
-        self.model.add(Conv2D(64, (5, 5), activation='relu'))
-        print("conv2d(5, 5, 64) output: ", self.model.output_shape)  # (20, 20, 64)
+        self.model.add(Conv2D(64, (5, 5), strides=(2, 2), activation='relu'))
+        print("conv2d output: ", self.model.output_shape)
         self.model.add(MaxPooling2D(pool_size=(2, 2)))
-        print("maxpool 2d(2,2): ", self.model.output_shape)  # (10, 10, 64)
+        print("maxpool2d output: ", self.model.output_shape)
         self.model.add(Dropout(0.25))
-        print("Dropout 0.25: ", self.model.output_shape)  # (10, 10, 64)
+        print("Dropout output: ", self.model.output_shape)
         print()
 
-        # self.model.add(Conv2D(128, (3, 3), activation='relu'))
-        # print("conv2d(3, 3, 128) output: ", self.model.output_shape)  # (8, 8, 128)
-        # self.model.add(MaxPooling2D(pool_size=(2, 2)))
-        # print("maxpool 2d(2,2): ", self.model.output_shape)  # (4, 4, 128)
-        # self.model.add(Dropout(0.5))
-        # print("Dropout 0.5: ", self.model.output_shape)  # (4, 4, 128)
 
-        self.model.add(Flatten())  # 4*4*128 = 2048
-        print(self.model.output_shape)
-        self.model.add(Dense(1000, activation='relu'))
-        print(self.model.output_shape)
+        self.model.add(Flatten())
+        print("Flatten output: ", self.model.output_shape)
+        self.model.add(Dense(484, activation='relu'))
+        print("Dense output: ", self.model.output_shape)
         self.model.add(Dense(self.num_classes, activation='softmax'))
-        print(self.model.output_shape)
+        print("Dense(softmax) output: ", self.model.output_shape)
         print()
 
         self.model.compile(loss=keras.losses.categorical_crossentropy,
