@@ -51,6 +51,8 @@ class CNN:
         print("Flatten output: ", self.model.output_shape)
         self.model.add(Dense(484, activation='relu'))
         print("Dense output: ", self.model.output_shape)
+        self.model.add(Dropout(0.5))
+        print("Dropout output: ", self.model.output_shape)
         self.model.add(Dense(self.num_classes, activation='softmax'))
         print("Dense(softmax) output: ", self.model.output_shape)
         print()
@@ -100,6 +102,6 @@ class CNN:
         print('Test Loss: %.4f' % (self.score[0]))
         print('Test Accuracy: %.4f' % (self.score[1]))
         print('=' * 30)
-
-cnn = CNN()
-cnn.make_cnn_model()
+#
+# cnn = CNN()
+# cnn.make_cnn_model()
