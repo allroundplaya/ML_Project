@@ -30,38 +30,30 @@ class CNN:
             (np.load(x_test_path)['a'], np.load(y_test_path)['a'])
 
     def make_cnn_model(self):
-        self.model.add(Conv2D(32, kernel_size=(9, 9), strides=(2, 2), activation='relu', input_shape=self.input_shape))
-        print("conv2d output: ", self.model.output_shape)
+
+        self.model.add(Conv2D(32, kernel_size=(3, 3), strides=(2, 2), activation='relu', input_shape=self.input_shape))
+#        self.model.add(Conv2D(32, kernel_size=(3, 3), strides=(2,2), activation='relu'))
         self.model.add(MaxPooling2D(pool_size=(2, 2)))
-        print("maxpool2d output: ", self.model.output_shape)
-        self.model.add(Dropout(0.25))
-        print("Dropout output: ", self.model.output_shape)
+#        self.model.add(Dropout(0.1))
         print()
 
-        self.model.add(Conv2D(64, (5, 5), strides=(2, 2), activation='relu'))
-        print("conv2d output: ", self.model.output_shape)
+        self.model.add(Conv2D(64, (3, 3), strides=(2, 2), activation='relu'))
         self.model.add(MaxPooling2D(pool_size=(2, 2)))
-        print("maxpool2d output: ", self.model.output_shape)
-        self.model.add(Dropout(0.25))
-        print("Dropout output: ", self.model.output_shape)
+ #       self.model.add(Dropout(0.1))
         print()
-
 
         self.model.add(Flatten())
-        print("Flatten output: ", self.model.output_shape)
         self.model.add(Dense(484, activation='relu'))
-        print("Dense output: ", self.model.output_shape)
-        self.model.add(Dropout(0.5))
-        print("Dropout output: ", self.model.output_shape)
+#        self.model.add(Dropout(0.2))
         self.model.add(Dense(self.num_classes, activation='softmax'))
-        print("Dense(softmax) output: ", self.model.output_shape)
         print()
 
         self.model.compile(loss=keras.losses.categorical_crossentropy,
                       optimizer=keras.optimizers.Adadelta(),
                       metrics=['accuracy'])
+        keras.utils.print_summary(self.model)
 
-    def train_model(self, batch_size=14, epochs=12):
+    def train_model(self, batch_size, epochs):
 
         # normalizing x
         x_train_normalized = self.x_train.astype('float32')/255
@@ -81,7 +73,7 @@ class CNN:
         self.model.fit(x_train_normalized, y_train_onehot_encoded,
                   batch_size=batch_size,
                   epochs=epochs,
-                  verbose=1,  # 진행상태를 보겠다는 의미입니다. 0: 아무것도 안보여줌, 1: 진행상태 bar 표시, 2: 한 epoch 당 한 줄
+                  verbose=2,  # 진행상태를 보겠다는 의미입니다. 0: 아무것도 안보여줌, 1: 진행상태 bar 표시, 2: 한 epoch 당 한 줄
                   validation_data=(x_test_normalized, y_test_onehot_encoded))
         self.score = self.model.evaluate(x_test_normalized, y_test_onehot_encoded, verbose=0)
 

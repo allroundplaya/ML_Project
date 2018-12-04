@@ -47,8 +47,7 @@ def Reformat_Image(path):
 def preprocess_train_data(char):
     if not os.path.exists(PATHS_DIR):
         os.mkdir(PATHS_DIR)
-    train_range = range(1, 70 + 1)
-    print("Preprocessing ", char + "(train)")
+    train_range = RAND_TRAIN
 
     # if not os.path.exists('./data/train_X_' + char + '.npz'):
     if not os.path.exists(DATA_DIR + '/train_X_' + char + '.npz'):  # train data npz file 여부 확인
@@ -79,8 +78,7 @@ def preprocess_train_data(char):
 def preprocess_test_data(char):
     if not os.path.exists(PATHS_DIR):
         os.mkdir(PATHS_DIR)
-    test_range = range(70 + 1, 100 + 1)
-    print("Preprocessing " + char + "(test)")
+    test_range = RAND_TEST
     if not os.path.exists(DATA_DIR + '/test_X_' + char + '.npz'):
         if not os.path.exists(PATHS_DIR + '/test_paths_' + char + '.npy'):
             test_paths = np.array([])
