@@ -11,7 +11,7 @@ x_test_path = DATA_DIR + "/test_X.npz"
 y_test_path = DATA_DIR + "/test_y.npz"
 
 
-#preprocess_all_data()
+preprocess_all_data()
 
 cnn = CNN()
 cnn.load_dataset(x_train_path=x_train_path, y_train_path=y_train_path,

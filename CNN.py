@@ -44,7 +44,7 @@ class CNN:
 
         self.model.add(Flatten())
         self.model.add(Dense(256, activation='relu'))
-        self.model.add(Dropout(0.3))
+        self.model.add(Dropout(0.5))
         self.model.add(Dense(self.num_classes, activation='softmax'))
         print()
 

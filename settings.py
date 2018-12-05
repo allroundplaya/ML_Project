@@ -7,5 +7,6 @@ TEMP_DATA_DIR = './temp_data'
 DATA_DIR = './data'
 IMAGE_DIR = './asl_alphabet_train'
 
-SAMPLES = random.sample(range(1, 3001), 500)
+S_COUNT = 300
+SAMPLES = random.sample(range(1, 3001), S_COUNT)
 
