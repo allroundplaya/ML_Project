@@ -39,12 +39,12 @@ class CNN:
 
         self.model.add(Conv2D(64, (3, 3), strides=(2, 2), activation='relu'))
         self.model.add(MaxPooling2D(pool_size=(2, 2)))
- #       self.model.add(Dropout(0.1))
+#        self.model.add(Dropout(0.1))
         print()
 
         self.model.add(Flatten())
-        self.model.add(Dense(484, activation='relu'))
-#        self.model.add(Dropout(0.2))
+        self.model.add(Dense(256, activation='relu'))
+        self.model.add(Dropout(0.3))
         self.model.add(Dense(self.num_classes, activation='softmax'))
         print()
 

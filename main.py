@@ -4,7 +4,7 @@ from settings import *
 
 batch_size = 100
 num_classes = 29
-epochs = 15
+epochs = 12
 x_train_path = DATA_DIR + "/train_X.npz"
 y_train_path = DATA_DIR + "/train_y.npz"
 x_test_path = DATA_DIR + "/test_X.npz"
