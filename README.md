@@ -16,7 +16,7 @@ This project is about making American sign language alphabet translator using da
 
 ### Environment
 <li> python 3.6.5. (64bit)
-<li> tensorflow
+<li> keras
 
 ## 4. Application
 We are trying to enhance the AI speaker system, so that hearing impaired people can use AI speaker by sign language
